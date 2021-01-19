@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-01-19T11:26:28Z</date>
+    <date>2021-01-19T11:51:47Z</date>
     <groups>
         <group>
             <name>ox-templates</name>
@@ -49,6 +49,13 @@
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(UP,2)}=0</expression>
+                            <name>App Suite allPluginaLoaded Status is not UP</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>App Suite configDB readConnectionRoundTripTime</name>
@@ -123,6 +130,13 @@
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(UP,2)}=0</expression>
+                            <name>App Suite configDB Status is not UP</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>App Suite hazelcast clusterState</name>
@@ -145,6 +159,13 @@
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <triggers>
+                        <trigger>
+                            <expression>{regexp(^ACTIVE$,2)}=0</expression>
+                            <name>App Suite Hazlecat Status is not ACTIVE</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>App Suite hazelcast clusterVersion</name>
@@ -364,6 +385,13 @@
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(UP,2)}=0</expression>
+                            <name>App Suite jvmHeap Status is not UP</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>Master Item</name>
@@ -377,6 +405,13 @@
                         </application>
                     </applications>
                     <url>http://{HOST.NAME}:{$APPSUITE.PORT}/health</url>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata(5)}=1</expression>
+                            <name>App Suite health no data in 5m</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>App Suite Service buildDate</name>
@@ -553,6 +588,13 @@
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(UP,2)}=0</expression>
+                            <name>App Suite Status is not UP</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
             </items>
             <macros>
