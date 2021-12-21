@@ -1,0 +1,523 @@
+zabbix_export:
+  version: '5.4'
+  date: '2021-12-21T10:18:31Z'
+  groups:
+    -
+      uuid: a0cb10b3bbc6454cabe7bb7025883d9a
+      name: ox-templates
+    -
+      uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    -
+      uuid: d868fc24da7d42a9a8b5255008a10c07
+      template: 'Template OX App Suite health'
+      name: 'Template OX App Suite health'
+      groups:
+        -
+          name: ox-templates
+        -
+          name: Templates
+      items:
+        -
+          uuid: 7dc1ee68373c424fb39e049e8b5c47e9
+          name: 'App Suite all Plugins Loaded Status'
+          type: DEPENDENT
+          key: appsuite.health.checks.0.status
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''allPluginsLoaded'')].status.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: 89549fcf79fc4cf589b9f89324275885
+              expression: 'find(/Template OX App Suite health/appsuite.health.checks.0.status,2s,"like","UP")=0'
+              name: 'App Suite allPluginsLoaded Status is not UP'
+              priority: AVERAGE
+        -
+          uuid: d3806c91e5964b75a5b16cdf2137246f
+          name: 'App Suite configDB readConnectionRoundTripTime'
+          type: DEPENDENT
+          key: appsuite.health.checks.1.data.readConnectionRoundTripTime
+          delay: '0'
+          value_type: FLOAT
+          units: ms
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''configDB'')].data.readConnectionRoundTripTime.first()'
+            -
+              type: RTRIM
+              parameters:
+                - ms
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 1adac32fe2d74840bf3db31ee0550ec1
+          name: 'App Suite configDB writeConnectionRoundTripTime'
+          type: DEPENDENT
+          key: appsuite.health.checks.1.data.writeConnectionRoundTripTime
+          delay: '0'
+          value_type: FLOAT
+          units: ms
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''configDB'')].data.writeConnectionRoundTripTime.first()'
+            -
+              type: RTRIM
+              parameters:
+                - ms
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: a1983a6692b14581bca0cba05770223e
+          name: 'App Suite configDB Status'
+          type: DEPENDENT
+          key: appsuite.health.checks.1.status
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''configDB'')].status.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: 7b0581826744474f8bb30f2e5d301eb3
+              expression: 'find(/Template OX App Suite health/appsuite.health.checks.1.status,2s,"like","UP")=0'
+              name: 'App Suite configDB Status is not UP'
+              priority: AVERAGE
+        -
+          uuid: d7c4a30270194e67ae850ba1ebf42257
+          name: 'App Suite hazelcast clusterState'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.data.clusterState
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].data.clusterState.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: cf82ae8d7c2b42aa8c7fee829b7af0d5
+              expression: 'find(/Template OX App Suite health/appsuite.health.checks.2.data.clusterState,2s,"regexp","^ACTIVE$")=0'
+              name: 'App Suite Hazlecat Status is not ACTIVE'
+              priority: AVERAGE
+        -
+          uuid: c2d90ac04f834876b93395a7957c6da7
+          name: 'App Suite hazelcast clusterVersion'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.data.clusterVersion
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].data.clusterVersion.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: b1c437a376294c26b83be33573e85872
+          name: 'App Suite hazelcast isLiteMember'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.data.isLiteMember
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].data.isLiteMember.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: f7255aa6230d4c3b81e4125ef66c7482
+          name: 'App Suite hazelcast memberCount'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.data.memberCount
+          delay: '0'
+          units: members
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].data.memberCount.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: da90b5d1f94d4b3a8b5aeea136d2edf4
+          name: 'App Suite hazelcast memberVersion'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.data.memberVersion
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].data.memberVersion.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 1b250f1f82fc4c2dbb246ea4898d4261
+          name: 'App Suite hazelcast Status'
+          type: DEPENDENT
+          key: appsuite.health.checks.2.status
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''hazelcast'')].status.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 8801dba7fe7847188c0ab7fff0daf8c7
+          name: 'App Suite jvmHeap commited'
+          type: DEPENDENT
+          key: appsuite.health.checks.3.data.commited
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''jvmHeap'')].data.commited.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: c48f1012defd4597a3f8dd6ac6120454
+          name: 'App Suite jvmHeap init'
+          type: DEPENDENT
+          key: appsuite.health.checks.3.data.init
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''jvmHeap'')].data.init.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: a182e3687d1f4099ac716257203e8d33
+          name: 'App Suite jvmHeap max'
+          type: DEPENDENT
+          key: appsuite.health.checks.3.data.max
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''jvmHeap'')].data.max.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 2d76d63ace5d4a5dabfb3f4f4c3907ed
+          name: 'App Suite jvmHeap used'
+          type: DEPENDENT
+          key: appsuite.health.checks.3.data.used
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''jvmHeap'')].data.used.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 9f8e514838084b2c823cae394658f25b
+          name: 'App Suite jvmHeap Status'
+          type: DEPENDENT
+          key: appsuite.health.checks.3.status
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.checks.[?(@.name == ''jvmHeap'')].status.first()'
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: 67ff05f3a37e48989fadf72873062d68
+              expression: 'find(/Template OX App Suite health/appsuite.health.checks.3.status,2s,"like","UP")=0'
+              name: 'App Suite jvmHeap Status is not UP'
+              priority: AVERAGE
+        -
+          uuid: 38cb491e822a40a3b6118fd13ac98498
+          name: 'Master Item'
+          type: HTTP_AGENT
+          key: appsuite.health.master
+          trends: '0'
+          value_type: TEXT
+          url: 'http://{HOST.NAME}:{$APPSUITE.PORT}/health'
+          status_codes: ''
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: 20d7668aadce4f04a527abba70c967dd
+              expression: 'nodata(/Template OX App Suite health/appsuite.health.master,300s)=1'
+              name: 'App Suite health no data in 5m'
+              priority: INFO
+        -
+          uuid: fe21f150484e4063a473d66caa845517
+          name: 'App Suite Service buildDate'
+          type: DEPENDENT
+          key: appsuite.health.service.buildDate
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.buildDate
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 8110672df6c64519942d29feee88d52f
+          name: 'App Suite Service charset'
+          type: DEPENDENT
+          key: appsuite.health.service.charset
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.charset
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 0b152e5496b5490e9643e1ee32ed98bc
+          name: 'App Suite Service date'
+          type: DEPENDENT
+          key: appsuite.health.service.date
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.date
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 939d0b2e4eb344898a2603d5ee198866
+          name: 'App Suite Service locale'
+          type: DEPENDENT
+          key: appsuite.health.service.locale
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.locale
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 19507bf646e740808bafcd0c827aff28
+          name: 'App Suite Service name'
+          type: DEPENDENT
+          key: appsuite.health.service.name
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.name
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: 9ce00a151e5647309f134d7cf911d8f8
+          name: 'App Suite Service timeZone'
+          type: DEPENDENT
+          key: appsuite.health.service.timeZone
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.timeZone
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: d4e9e0da678543b98b12d998f4ebfc5b
+          name: 'App Suite Service version'
+          type: DEPENDENT
+          key: appsuite.health.service.version
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.service.version
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+        -
+          uuid: f1e52078ecd449dca1eddf48a16ea552
+          name: 'App Suite Status'
+          type: DEPENDENT
+          key: appsuite.health.status
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: appsuite.health.master
+          tags:
+            -
+              tag: Application
+              value: 'App Suite Health'
+          triggers:
+            -
+              uuid: ccd52dd0b3d4421a90e39496c09949d6
+              expression: 'find(/Template OX App Suite health/appsuite.health.status,2s,"like","UP")=0'
+              name: 'App Suite Status is not UP'
+              priority: AVERAGE
+      macros:
+        -
+          macro: '{$APPSUITE.CONN}'
+          value: 127.0.0.1
+          description: 'IP/domain of instance'
+        -
+          macro: '{$APPSUITE.PORT}'
+          value: '8009'
+          description: Port
