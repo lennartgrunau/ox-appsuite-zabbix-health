@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>5.0</version>
-    <date>2021-01-19T11:51:47Z</date>
+    <version>5.4</version>
+    <date>2021-12-21T10:25:05Z</date>
     <groups>
         <group>
+            <uuid>a0cb10b3bbc6454cabe7bb7025883d9a</uuid>
             <name>ox-templates</name>
         </group>
         <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
             <name>Templates</name>
         </group>
     </groups>
     <templates>
         <template>
+            <uuid>d868fc24da7d42a9a8b5255008a10c07</uuid>
             <template>Template OX App Suite health</template>
             <name>Template OX App Suite health</name>
             <groups>
@@ -22,575 +25,675 @@
                     <name>Templates</name>
                 </group>
             </groups>
-            <applications>
-                <application>
-                    <name>App Suite Health</name>
-                </application>
-            </applications>
             <items>
                 <item>
+                    <uuid>7dc1ee68373c424fb39e049e8b5c47e9</uuid>
                     <name>App Suite all Plugins Loaded Status</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.0.status</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[0].status</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'allPluginsLoaded')].status.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{str(UP,2)}=0</expression>
-                            <name>App Suite allPluginaLoaded Status is not UP</name>
+                            <uuid>89549fcf79fc4cf589b9f89324275885</uuid>
+                            <expression>find(/Template OX App Suite health/appsuite.health.checks.0.status,2s,&quot;like&quot;,&quot;UP&quot;)=0</expression>
+                            <name>App Suite allPluginsLoaded Status is not UP</name>
                             <priority>AVERAGE</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>d3806c91e5964b75a5b16cdf2137246f</uuid>
                     <name>App Suite configDB readConnectionRoundTripTime</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.1.data.readConnectionRoundTripTime</key>
                     <delay>0</delay>
                     <value_type>FLOAT</value_type>
                     <units>ms</units>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[1].data.readConnectionRoundTripTime</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'configDB')].data.readConnectionRoundTripTime.first()</parameter>
+                            </parameters>
                         </step>
                         <step>
                             <type>RTRIM</type>
-                            <params>ms</params>
+                            <parameters>
+                                <parameter>ms</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>1adac32fe2d74840bf3db31ee0550ec1</uuid>
                     <name>App Suite configDB writeConnectionRoundTripTime</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.1.data.writeConnectionRoundTripTime</key>
                     <delay>0</delay>
                     <value_type>FLOAT</value_type>
                     <units>ms</units>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[1].data.writeConnectionRoundTripTime</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'configDB')].data.writeConnectionRoundTripTime.first()</parameter>
+                            </parameters>
                         </step>
                         <step>
                             <type>RTRIM</type>
-                            <params>ms</params>
+                            <parameters>
+                                <parameter>ms</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>a1983a6692b14581bca0cba05770223e</uuid>
                     <name>App Suite configDB Status</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.1.status</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[1].status</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'configDB')].status.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{str(UP,2)}=0</expression>
+                            <uuid>7b0581826744474f8bb30f2e5d301eb3</uuid>
+                            <expression>find(/Template OX App Suite health/appsuite.health.checks.1.status,2s,&quot;like&quot;,&quot;UP&quot;)=0</expression>
                             <name>App Suite configDB Status is not UP</name>
                             <priority>AVERAGE</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>d7c4a30270194e67ae850ba1ebf42257</uuid>
                     <name>App Suite hazelcast clusterState</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.data.clusterState</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].data.clusterState</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].data.clusterState.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{regexp(^ACTIVE$,2)}=0</expression>
+                            <uuid>cf82ae8d7c2b42aa8c7fee829b7af0d5</uuid>
+                            <expression>find(/Template OX App Suite health/appsuite.health.checks.2.data.clusterState,2s,&quot;regexp&quot;,&quot;^ACTIVE$&quot;)=0</expression>
                             <name>App Suite Hazlecat Status is not ACTIVE</name>
                             <priority>AVERAGE</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>c2d90ac04f834876b93395a7957c6da7</uuid>
                     <name>App Suite hazelcast clusterVersion</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.data.clusterVersion</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].data.clusterVersion</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].data.clusterVersion.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>b1c437a376294c26b83be33573e85872</uuid>
                     <name>App Suite hazelcast isLiteMember</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.data.isLiteMember</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].data.isLiteMember</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].data.isLiteMember.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>f7255aa6230d4c3b81e4125ef66c7482</uuid>
                     <name>App Suite hazelcast memberCount</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.data.memberCount</key>
                     <delay>0</delay>
                     <units>members</units>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].data.memberCount</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].data.memberCount.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>da90b5d1f94d4b3a8b5aeea136d2edf4</uuid>
                     <name>App Suite hazelcast memberVersion</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.data.memberVersion</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].data.memberVersion</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].data.memberVersion.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>1b250f1f82fc4c2dbb246ea4898d4261</uuid>
                     <name>App Suite hazelcast Status</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.2.status</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[2].status</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'hazelcast')].status.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>8801dba7fe7847188c0ab7fff0daf8c7</uuid>
                     <name>App Suite jvmHeap commited</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.3.data.commited</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[3].data.commited</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'jvmHeap')].data.commited.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>c48f1012defd4597a3f8dd6ac6120454</uuid>
                     <name>App Suite jvmHeap init</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.3.data.init</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[3].data.init</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'jvmHeap')].data.init.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>a182e3687d1f4099ac716257203e8d33</uuid>
                     <name>App Suite jvmHeap max</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.3.data.max</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[3].data.max</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'jvmHeap')].data.max.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>2d76d63ace5d4a5dabfb3f4f4c3907ed</uuid>
                     <name>App Suite jvmHeap used</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.3.data.used</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[3].data.used</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'jvmHeap')].data.used.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>9f8e514838084b2c823cae394658f25b</uuid>
                     <name>App Suite jvmHeap Status</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.checks.3.status</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.checks.[3].status</params>
+                            <parameters>
+                                <parameter>$.checks.[?(@.name == 'jvmHeap')].status.first()</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{str(UP,2)}=0</expression>
+                            <uuid>67ff05f3a37e48989fadf72873062d68</uuid>
+                            <expression>find(/Template OX App Suite health/appsuite.health.checks.3.status,2s,&quot;like&quot;,&quot;UP&quot;)=0</expression>
                             <name>App Suite jvmHeap Status is not UP</name>
                             <priority>AVERAGE</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>38cb491e822a40a3b6118fd13ac98498</uuid>
                     <name>Master Item</name>
                     <type>HTTP_AGENT</type>
                     <key>appsuite.health.master</key>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <url>http://{HOST.NAME}:{$APPSUITE.PORT}/health</url>
+                    <status_codes/>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{nodata(5)}=1</expression>
+                            <uuid>20d7668aadce4f04a527abba70c967dd</uuid>
+                            <expression>nodata(/Template OX App Suite health/appsuite.health.master,300s)=1</expression>
                             <name>App Suite health no data in 5m</name>
                             <priority>INFO</priority>
                         </trigger>
                     </triggers>
                 </item>
                 <item>
+                    <uuid>fe21f150484e4063a473d66caa845517</uuid>
                     <name>App Suite Service buildDate</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.buildDate</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.buildDate</params>
+                            <parameters>
+                                <parameter>$.service.buildDate</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>8110672df6c64519942d29feee88d52f</uuid>
                     <name>App Suite Service charset</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.charset</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.charset</params>
+                            <parameters>
+                                <parameter>$.service.charset</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>0b152e5496b5490e9643e1ee32ed98bc</uuid>
                     <name>App Suite Service date</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.date</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.date</params>
+                            <parameters>
+                                <parameter>$.service.date</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>939d0b2e4eb344898a2603d5ee198866</uuid>
                     <name>App Suite Service locale</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.locale</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.locale</params>
+                            <parameters>
+                                <parameter>$.service.locale</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>19507bf646e740808bafcd0c827aff28</uuid>
                     <name>App Suite Service name</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.name</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.name</params>
+                            <parameters>
+                                <parameter>$.service.name</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>9ce00a151e5647309f134d7cf911d8f8</uuid>
                     <name>App Suite Service timeZone</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.timeZone</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.timeZone</params>
+                            <parameters>
+                                <parameter>$.service.timeZone</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>d4e9e0da678543b98b12d998f4ebfc5b</uuid>
                     <name>App Suite Service version</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.service.version</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.service.version</params>
+                            <parameters>
+                                <parameter>$.service.version</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                 </item>
                 <item>
+                    <uuid>f1e52078ecd449dca1eddf48a16ea552</uuid>
                     <name>App Suite Status</name>
                     <type>DEPENDENT</type>
                     <key>appsuite.health.status</key>
                     <delay>0</delay>
                     <trends>0</trends>
                     <value_type>CHAR</value_type>
-                    <applications>
-                        <application>
-                            <name>App Suite Health</name>
-                        </application>
-                    </applications>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.status</params>
+                            <parameters>
+                                <parameter>$.status</parameter>
+                            </parameters>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>appsuite.health.master</key>
                     </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>App Suite Health</value>
+                        </tag>
+                    </tags>
                     <triggers>
                         <trigger>
-                            <expression>{str(UP,2)}=0</expression>
+                            <uuid>ccd52dd0b3d4421a90e39496c09949d6</uuid>
+                            <expression>find(/Template OX App Suite health/appsuite.health.status,2s,&quot;like&quot;,&quot;UP&quot;)=0</expression>
                             <name>App Suite Status is not UP</name>
                             <priority>AVERAGE</priority>
                         </trigger>
